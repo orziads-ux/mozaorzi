@@ -75,6 +75,15 @@ function BraceletSection({
                 value: product.price,
               });
             }
+            if (typeof window !== 'undefined' && window.ttq) {
+              window.ttq.track('ViewContent', {
+                content_id: product.id,
+                content_name: product.name,
+                content_type: 'product',
+                currency: 'EGP',
+                value: product.price,
+              });
+            }
             observer.disconnect();
           }
         }
@@ -653,6 +662,15 @@ export default function BraceletsPage() {
         content_ids: [product.id],
         content_type: 'product',
         content_name: product.name,
+        currency: 'EGP',
+        value: product.price,
+      });
+    }
+    if (typeof window !== 'undefined' && window.ttq) {
+      window.ttq.track('AddToCart', {
+        content_id: product.id,
+        content_name: product.name,
+        content_type: 'product',
         currency: 'EGP',
         value: product.price,
       });
