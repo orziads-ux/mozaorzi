@@ -958,6 +958,39 @@ fbq('track', 'PageView');
         box-shadow: 0 8px 24px rgba(201, 169, 79, 0.35);
       }
 
+      /* ---------- AURELIA Bonus Gift Modal ---------- */
+      .gift-modal--bonus {
+        z-index: 10003;
+      }
+
+      .gift-modal__content--bonus {
+        border-color: rgba(231, 221, 204, 0.25);
+        box-shadow: 0 24px 64px rgba(36, 50, 71, 0.5), 0 8px 24px rgba(36, 50, 71, 0.25);
+      }
+
+      .gift-modal__icon--bonus {
+        border-color: rgba(231, 221, 204, 0.35);
+        background: rgba(231, 221, 204, 0.08);
+      }
+
+      .gift-modal__icon--bonus svg {
+        stroke: #e7ddcc;
+      }
+
+      .gift-modal__content--bonus .gift-modal__divider {
+        background: linear-gradient(90deg, transparent, rgba(231, 221, 204, 0.45), transparent);
+      }
+
+      .gift-modal__content--bonus .gift-modal__button {
+        background: linear-gradient(135deg, #e7ddcc 0%, #d8cab5 100%);
+        color: #243247;
+        box-shadow: 0 4px 16px rgba(231, 221, 204, 0.2);
+      }
+
+      .gift-modal__content--bonus .gift-modal__button:hover {
+        box-shadow: 0 8px 24px rgba(231, 221, 204, 0.3);
+      }
+
       @media (max-width: 480px) {
         .gift-modal__content {
           padding: 36px 24px 28px;
@@ -1342,6 +1375,25 @@ fbq('track', 'PageView');
       </div>
     </div>
 
+    <div id="aureliaBonusGiftModal" class="gift-modal gift-modal--bonus">
+      <div class="gift-modal__content gift-modal__content--bonus">
+        <button class="gift-modal__close" onclick="closeBonusGiftModal()" aria-label="إغلاق">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="gift-modal__icon gift-modal__icon--bonus">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+          </svg>
+        </div>
+        <h3 class="gift-modal__title">هدية إضافية</h3>
+        <div class="gift-modal__divider"></div>
+        <p class="gift-modal__text">هنبعتلك هدية بسيطة مع الأوردر</p>
+        <button class="gift-modal__button" onclick="closeBonusGiftModal()">تمام، أكمل الطلب</button>
+      </div>
+    </div>
+
     <script>
       var CART_KEY = 'orzi_cart';
 
@@ -1407,6 +1459,29 @@ fbq('track', 'PageView');
         return cartItems.some(function(item) {
           return item.name === 'AURELIA' && item.quantity > 0;
         });
+      }
+
+      function isBonusGiftQualified() {
+        var items = loadCart();
+        var hasAurelia = items.some(function(item) {
+          return item.name === 'AURELIA' && item.quantity > 0;
+        });
+        if (!hasAurelia) return false;
+        var totalItems = calcTotalItems(items);
+        return totalItems >= 4;
+      }
+
+      function getOfferTag() {
+        var items = loadCart();
+        var hasAurelia = items.some(function(item) {
+          return item.name === 'AURELIA' && item.quantity > 0;
+        });
+        if (!hasAurelia) return '';
+        var totalItems = calcTotalItems(items);
+        if (totalItems >= 4) {
+          return 'شحن مجاني + vera مجاناً';
+        }
+        return 'شحن مجاني';
       }
 
       function loadCart() {
@@ -1712,19 +1787,27 @@ fbq('track', 'PageView');
         });
 
         /* Build detailed address string from form fields */
+        var offerTag = getOfferTag();
+        var landmarksVal = document.getElementById('landmarks').value.trim();
+        var landmarksWithOffer = landmarksVal;
+        if (offerTag) {
+          landmarksWithOffer = landmarksVal
+            ? landmarksVal + ' - ' + offerTag
+            : offerTag;
+        }
+
         var addressParts = [];
         var streetVal = document.getElementById('street').value.trim();
         var buildingVal = document.getElementById('building').value.trim();
         var floorVal = document.getElementById('floor').value.trim();
-        var landmarksVal = document.getElementById('landmarks').value.trim();
         if (streetVal) addressParts.push('الشارع: ' + streetVal);
         if (buildingVal) addressParts.push('مبنى: ' + buildingVal);
         if (floorVal) addressParts.push('دور: ' + floorVal);
-        if (landmarksVal) addressParts.push('معالم: ' + landmarksVal);
+        if (landmarksWithOffer) addressParts.push('معالم: ' + landmarksWithOffer);
         var detailedAddress = addressParts.join('، ');
 
-        /* Optional notes from landmarks field */
-        var notes = landmarksVal || '';
+        /* Optional notes from landmarks field (with offer tag appended) */
+        var notes = landmarksWithOffer || '';
 
         var formData = {
           name: document.getElementById('name').value.trim(),
@@ -1842,7 +1925,10 @@ fbq('track', 'PageView');
 
       /* ---------- AURELIA Gift Modal ---------- */
       var giftModal = document.getElementById('aureliaGiftModal');
+      var bonusGiftModal = document.getElementById('aureliaBonusGiftModal');
       var giftModalShown = false;
+      var bonusGiftModalShown = false;
+      var bonusGiftQueued = false;
 
       function openGiftModal() {
         if (giftModalShown) return;
@@ -1852,6 +1938,9 @@ fbq('track', 'PageView');
 
       function closeGiftModal() {
         giftModal.classList.remove('active');
+        if (bonusGiftQueued && !bonusGiftModalShown) {
+          setTimeout(openBonusGiftModal, 450);
+        }
       }
 
       giftModal.addEventListener('click', function(e) {
@@ -1860,20 +1949,48 @@ fbq('track', 'PageView');
         }
       });
 
+      function openBonusGiftModal() {
+        if (bonusGiftModalShown) return;
+        bonusGiftModalShown = true;
+        bonusGiftQueued = false;
+        bonusGiftModal.classList.add('active');
+      }
+
+      function closeBonusGiftModal() {
+        bonusGiftModal.classList.remove('active');
+      }
+
+      bonusGiftModal.addEventListener('click', function(e) {
+        if (e.target === bonusGiftModal) {
+          closeBonusGiftModal();
+        }
+      });
+
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && giftModal.classList.contains('active')) {
-          closeGiftModal();
+        if (e.key === 'Escape') {
+          if (bonusGiftModal.classList.contains('active')) {
+            closeBonusGiftModal();
+          } else if (giftModal.classList.contains('active')) {
+            closeGiftModal();
+          }
         }
       });
 
       function checkAureliaGift() {
-        if (giftModalShown) return;
         var items = loadCart();
         var hasAurelia = items.some(function(item) {
           return item.name === 'AURELIA' && item.quantity > 0;
         });
-        if (hasAurelia) {
+        if (!hasAurelia) return;
+
+        if (isBonusGiftQualified() && !bonusGiftModalShown) {
+          bonusGiftQueued = true;
+        }
+
+        if (!giftModalShown) {
           setTimeout(openGiftModal, 600);
+        } else if (bonusGiftQueued && !bonusGiftModalShown && !giftModal.classList.contains('active')) {
+          setTimeout(openBonusGiftModal, 450);
         }
       }
 
