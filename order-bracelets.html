@@ -719,6 +719,359 @@ fbq('track', 'PageView');
         margin-top: 16px;
       }
 
+      /* ---------- Payment Method Selector ---------- */
+      .payment-section {
+        margin-top: 32px;
+      }
+
+      .payment-section__label {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: #243247;
+        margin-bottom: 12px;
+        opacity: 0.85;
+      }
+
+      .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .payment-option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border: 1.5px solid rgba(36, 50, 71, 0.15);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .payment-option:hover {
+        border-color: rgba(36, 50, 71, 0.3);
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .payment-option--selected {
+        border-color: #243247;
+        background: rgba(36, 50, 71, 0.04);
+        box-shadow: 0 2px 12px rgba(36, 50, 71, 0.08);
+      }
+
+      .payment-option__radio {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid rgba(36, 50, 71, 0.3);
+        flex-shrink: 0;
+        transition: border-color 0.25s ease;
+      }
+
+      .payment-option--selected .payment-option__radio {
+        border-color: #243247;
+      }
+
+      .payment-option__radio::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #243247;
+        transition: transform 0.2s ease;
+      }
+
+      .payment-option--selected .payment-option__radio::after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .payment-option__body {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .payment-option__title {
+        font-family: 'Amiri', serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #243247;
+        margin-bottom: 2px;
+      }
+
+      .payment-option__desc {
+        font-size: 13px;
+        color: #243247;
+        opacity: 0.55;
+      }
+
+      .payment-option__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #e7ddcc 0%, #d8cab5 100%);
+        color: #243247;
+        font-family: 'Cinzel', serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        border: 1px solid rgba(36, 50, 71, 0.1);
+      }
+
+      .payment-option__badge svg {
+        width: 14px;
+        height: 14px;
+        stroke: #243247;
+      }
+
+      /* ---------- InstaPay Box ---------- */
+      .instapay-box {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, margin 0.3s ease;
+        margin-top: 0;
+      }
+
+      .instapay-box--open {
+        max-height: 900px;
+        opacity: 1;
+        margin-top: 16px;
+      }
+
+      .instapay-box__inner {
+        background: linear-gradient(165deg, #243247 0%, #1a2b3c 100%);
+        border: 1px solid rgba(231, 221, 204, 0.18);
+        border-radius: 12px;
+        padding: 28px 24px;
+        box-shadow: 0 8px 32px rgba(36, 50, 71, 0.2);
+      }
+
+      .instapay-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(231, 221, 204, 0.12);
+        margin-bottom: 22px;
+      }
+
+      .instapay-total__label {
+        font-family: 'Amiri', serif;
+        font-size: 15px;
+        color: #e7ddcc;
+        opacity: 0.7;
+      }
+
+      .instapay-total__value {
+        font-family: 'Cinzel', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #e7ddcc;
+      }
+
+      .instapay-direct-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 15px 24px;
+        background: linear-gradient(135deg, #e7ddcc 0%, #d8cab5 100%);
+        color: #243247;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Amiri', serif;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 16px rgba(231, 221, 204, 0.15);
+      }
+
+      .instapay-direct-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(231, 221, 204, 0.25);
+      }
+
+      .instapay-direct-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: #243247;
+      }
+
+      .instapay-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0;
+      }
+
+      .instapay-divider__line {
+        flex: 1;
+        height: 1px;
+        background: rgba(231, 221, 204, 0.15);
+      }
+
+      .instapay-divider__text {
+        font-family: 'Amiri', serif;
+        font-size: 13px;
+        color: #e7ddcc;
+        opacity: 0.5;
+      }
+
+      .instapay-qr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .instapay-qr__frame {
+        background: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(231, 221, 204, 0.2);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .instapay-qr__img {
+        display: block;
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
+      }
+
+      .instapay-qr__caption {
+        font-family: 'Amiri', serif;
+        font-size: 14px;
+        color: #e7ddcc;
+        opacity: 0.65;
+        text-align: center;
+      }
+
+      .instapay-copy-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        background: rgba(231, 221, 204, 0.06);
+        border: 1px solid rgba(231, 221, 204, 0.12);
+        border-radius: 8px;
+        padding: 6px 6px 6px 14px;
+      }
+
+      .instapay-copy__address {
+        flex: 1;
+        min-width: 0;
+        font-family: 'Cinzel', serif;
+        font-size: 14px;
+        color: #e7ddcc;
+        opacity: 0.85;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        direction: ltr;
+      }
+
+      .instapay-copy__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        background: rgba(231, 221, 204, 0.12);
+        color: #e7ddcc;
+        border: 1px solid rgba(231, 221, 204, 0.18);
+        border-radius: 6px;
+        font-family: 'Amiri', serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background 0.25s ease;
+      }
+
+      .instapay-copy__btn:hover {
+        background: rgba(231, 221, 204, 0.2);
+      }
+
+      .instapay-copy__btn svg {
+        width: 15px;
+        height: 15px;
+        stroke: #e7ddcc;
+      }
+
+      .instapay-copy__btn--copied {
+        background: rgba(45, 90, 61, 0.35);
+        border-color: rgba(120, 200, 140, 0.3);
+        color: #b8e6c4;
+      }
+
+      .instapay-callout {
+        margin-top: 20px;
+        padding: 16px 18px;
+        background: rgba(201, 169, 79, 0.08);
+        border: 1px solid rgba(201, 169, 79, 0.25);
+        border-radius: 8px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .instapay-callout__icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        margin-top: 1px;
+      }
+
+      .instapay-callout__icon svg {
+        width: 22px;
+        height: 22px;
+        stroke: #c9a94f;
+      }
+
+      .instapay-callout__text {
+        font-family: 'Amiri', serif;
+        font-size: 14px;
+        color: #e7ddcc;
+        opacity: 0.85;
+        line-height: 1.7;
+      }
+
+      .instapay-callout__text strong {
+        color: #c9a94f;
+        font-weight: 700;
+      }
+
+      @media (max-width: 480px) {
+        .instapay-box__inner {
+          padding: 22px 18px;
+        }
+        .instapay-qr__img {
+          width: 150px;
+          height: 150px;
+        }
+        .instapay-copy__address {
+          font-size: 12px;
+        }
+      }
+
       .closing-section {
         margin-top: 60px;
         padding: 48px 0;
@@ -1325,6 +1678,100 @@ fbq('track', 'PageView');
                 وسيقوم فريق ORZI بالتواصل معك لتأكيد التفاصيل.
               </div>
 
+              <div class="payment-section">
+                <label class="payment-section__label">طريقة الدفع</label>
+                <div class="payment-options">
+                  <label class="payment-option payment-option--selected" id="codOption">
+                    <input type="radio" name="paymentMethod" value="cod" checked style="display:none;" />
+                    <span class="payment-option__radio"></span>
+                    <div class="payment-option__body">
+                      <div class="payment-option__title">الدفع عند الاستلام</div>
+                      <div class="payment-option__desc">ادفع نقداً عند استلام طلبك</div>
+                    </div>
+                    <span class="payment-option__badge">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a5 5 0 00-10 0v2M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      COD
+                    </span>
+                  </label>
+
+                  <label class="payment-option" id="instapayOption">
+                    <input type="radio" name="paymentMethod" value="instapay" style="display:none;" />
+                    <span class="payment-option__radio"></span>
+                    <div class="payment-option__body">
+                      <div class="payment-option__title">الدفع عبر إنستا باي</div>
+                      <div class="payment-option__desc">حوّل الآن وأكمل طلبك فوراً</div>
+                    </div>
+                    <span class="payment-option__badge">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      InstaPay
+                    </span>
+                  </label>
+                </div>
+
+                <div class="instapay-box" id="instapayBox">
+                  <div class="instapay-box__inner">
+                    <div class="instapay-total">
+                      <span class="instapay-total__label">المبلغ المطلوب تحويله</span>
+                      <span class="instapay-total__value" id="instapayTotalAmount">0 جنيه</span>
+                    </div>
+
+                    <a
+                      href="https://ipn.eg/S/orzi.eg/instapay/1drFUT"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="instapay-direct-btn"
+                    >
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      التحويل المباشر عبر تطبيق إنستا باي
+                    </a>
+
+                    <div class="instapay-divider">
+                      <span class="instapay-divider__line"></span>
+                      <span class="instapay-divider__text">أو</span>
+                      <span class="instapay-divider__line"></span>
+                    </div>
+
+                    <div class="instapay-qr">
+                      <div class="instapay-qr__frame">
+                        <img
+                          class="instapay-qr__img"
+                          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fipn.eg%2FS%2Forzi.eg%2Finstapay%2F1drFUT&bgcolor=ffffff&color=243247&margin=0"
+                          alt="QR InstaPay"
+                        />
+                      </div>
+                      <p class="instapay-qr__caption">أو امسح رمز الـ QR من تطبيق إنستا باي</p>
+                    </div>
+
+                    <div class="instapay-copy-row">
+                      <span class="instapay-copy__address" id="instapayAddress">orzi.eg@instapay</span>
+                      <button type="button" class="instapay-copy__btn" id="instapayCopyBtn" onclick="copyInstapayAddress()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        <span id="instapayCopyLabel">نسخ عنوان الدفع</span>
+                      </button>
+                    </div>
+
+                    <div class="instapay-callout">
+                      <span class="instapay-callout__icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                      <p class="instapay-callout__text">
+                        <strong>خطوة أخيرة لتأكيد الدفع:</strong> بعد إتمام التحويل، يُرجى الاحتفاظ بصورة (Screenshot) من إيصال التحويل لإرسالها لنا عبر الواتساب عند تواصلنا معك لتأكيد الأوردر وشحنه فوراً.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <button type="submit" id="submitBtn" class="submit-button">
                 أكمل طلبك الآن
               </button>
@@ -1591,6 +2038,9 @@ fbq('track', 'PageView');
 
         cartSection.innerHTML = html;
         checkAureliaGift();
+        if (instapayBox && instapayBox.classList.contains('instapay-box--open')) {
+          updateInstapayTotal();
+        }
       }
 
       function changeQty(idx, delta) {
@@ -1678,6 +2128,83 @@ fbq('track', 'PageView');
         clearError('governorateError');
         renderCart();
       });
+
+      /* ---------- Payment Method Selection ---------- */
+      var codOption = document.getElementById('codOption');
+      var instapayOption = document.getElementById('instapayOption');
+      var instapayBox = document.getElementById('instapayBox');
+      var instapayTotalAmount = document.getElementById('instapayTotalAmount');
+
+      function getSelectedPaymentMethod() {
+        var checked = document.querySelector('input[name="paymentMethod"]:checked');
+        return checked ? checked.value : 'cod';
+      }
+
+      function updateInstapayTotal() {
+        var items = loadCart();
+        var subtotal = calcSubtotal(items);
+        var shipping = getShippingCost();
+        var total = subtotal + shipping;
+        instapayTotalAmount.textContent = total.toLocaleString('en-US') + ' جنيه';
+      }
+
+      function selectPaymentMethod(method) {
+        if (method === 'instapay') {
+          codOption.classList.remove('payment-option--selected');
+          instapayOption.classList.add('payment-option--selected');
+          instapayBox.classList.add('instapay-box--open');
+          updateInstapayTotal();
+        } else {
+          instapayOption.classList.remove('payment-option--selected');
+          codOption.classList.add('payment-option--selected');
+          instapayBox.classList.remove('instapay-box--open');
+        }
+      }
+
+      codOption.addEventListener('click', function() {
+        var radio = codOption.querySelector('input[type="radio"]');
+        radio.checked = true;
+        selectPaymentMethod('cod');
+      });
+
+      instapayOption.addEventListener('click', function() {
+        var radio = instapayOption.querySelector('input[type="radio"]');
+        radio.checked = true;
+        selectPaymentMethod('instapay');
+      });
+
+      function copyInstapayAddress() {
+        var address = 'orzi.eg@instapay';
+        var copyBtn = document.getElementById('instapayCopyBtn');
+        var copyLabel = document.getElementById('instapayCopyLabel');
+        var done = function() {
+          copyBtn.classList.add('instapay-copy__btn--copied');
+          copyLabel.textContent = 'تم النسخ ✓';
+          setTimeout(function() {
+            copyBtn.classList.remove('instapay-copy__btn--copied');
+            copyLabel.textContent = 'نسخ عنوان الدفع';
+          }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(address).then(done).catch(function() {
+            fallbackCopy(address, done);
+          });
+        } else {
+          fallbackCopy(address, done);
+        }
+      }
+
+      function fallbackCopy(text, cb) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        if (cb) cb();
+      }
 
       function validateForm() {
         var isValid = true;
@@ -1816,6 +2343,7 @@ fbq('track', 'PageView');
           governorate: document.getElementById('governorate').value,
           area: document.getElementById('area').value,
           address: detailedAddress,
+          paymentMethod: getSelectedPaymentMethod() === 'instapay' ? 'InstaPay' : 'الدفع عند الاستلام',
           auraQty: qtyFields.auraQty,
           harmoniaQty: qtyFields.harmoniaQty,
           sophiaQty: qtyFields.sophiaQty,
