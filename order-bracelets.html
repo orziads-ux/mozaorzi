@@ -2343,7 +2343,6 @@ fbq('track', 'PageView');
           governorate: document.getElementById('governorate').value,
           area: document.getElementById('area').value,
           address: detailedAddress,
-          paymentMethod: getSelectedPaymentMethod() === 'instapay' ? 'InstaPay' : 'الدفع عند الاستلام',
           auraQty: qtyFields.auraQty,
           harmoniaQty: qtyFields.harmoniaQty,
           sophiaQty: qtyFields.sophiaQty,
@@ -2353,7 +2352,8 @@ fbq('track', 'PageView');
           rubraQty: qtyFields.rubraQty,
           veraQty: qtyFields.veraQty,
           totalPrice: totalPrice,
-          notes: notes
+          notes: notes,
+          paymentMethod: getSelectedPaymentMethod() === 'instapay' ? 'InstaPay' : 'الدفع عند الاستلام'
         };
 
         try {
