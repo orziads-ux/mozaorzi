@@ -2431,6 +2431,7 @@ fbq('track', 'PageView');
           modal.classList.add('active');
           form.reset();
           areaSelect.disabled = true;
+          selectPaymentMethod('cod');
           renderCart();
         } catch (error) {
           modal.classList.add('active');
